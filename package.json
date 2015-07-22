@@ -1,6 +1,6 @@
 {
   "name": "dev-bundle-provider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A tool for create a bundle file",
   "main": "start.js",
   "dependencies": {

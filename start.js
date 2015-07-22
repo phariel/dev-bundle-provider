@@ -3,18 +3,21 @@ var fs = require('fs');
 var glob = require('glob');
 var mime = require('mime');
 
-var PORT = 12306,
-	SOURCE_PATH = '/example/path/**/*.css';
+var PORT = 8080,
+  SOURCE_PATH = '/example/path/**/*.css',
+  EXCLUDE_FILES = /example.css|min.css/;
 
-http.createServer(function (req, res) {
-	var data = '';
-	glob(SOURCE_PATH, function (err, files) {
-		files.forEach(function (v, i) {
-			data += fs.readFileSync(v);
-		});
-		res.writeHead(200, {
-			'Content-Type': mime.lookup(SOURCE_PATH)
-		});
-		res.end(data);
-	});
+http.createServer(function(req, res) {
+  var data = '';
+  glob(SOURCE_PATH, function(err, files) {
+    files.forEach(function(v, i) {
+      if (!v.match(EXCLUDE_FILES)) {
+        data += fs.readFileSync(v);
+      }
+    });
+    res.writeHead(200, {
+      'Content-Type': mime.lookup(SOURCE_PATH)
+    });
+    res.end(data);
+  });
 }).listen(PORT);
