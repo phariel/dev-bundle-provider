@@ -1,28 +1,31 @@
-### How to use
-
-Open `start.js`
-
+# How to use
+##### `$ npm install`
+##### Rename `config-sample.json` to `config.json`.
+##### Open `config.json`:
 Modify `port` if you want.
 
-Modify `SOURCE_PATH` which direct to files folder, should keep `**/*.ext` behind it.
+Modify `rootPath` which direct to app root folder.
 
-If needing exclude files just modify `EXCLUDE_FILES` regular expression.
+If you need a handler which provides files' contents aggregation,
 
-Then
+you could create `rules` by yourself.
 
-`$ npm install`
+##### config.json sample:
 
-You should create your own config.json under app folder before app start.
+```
+{
+  // when visiting http://localhost:9527/style/min.css
+  // it should provide all .css contents aggregation under /path/to/root/style/ folder
+  // excluded "other.css" and "exclude.css".
 
-config.json sample:
+  "port": 9527, //optional, default to 8080
+  "rootPath": "/path/to/root",
+  "rules": [{
+    "url": "/style/min.css",
+    "sourceRule": "/style/**/*.css",
+    "excludeFiles": "other.css|exclude.css" //optional
+  }]
+}
+```
 
-    {
-      "sourcePath": "/your/source/path/**/*.css", //mandatory
-      "excludeFiles": "min.css|dist.css", //optional
-      "port": 12306 //optional
-    }
-
-
-`$ node start.js`
-
-Visit `http://localhost:port`
+##### `$ node start.js`
