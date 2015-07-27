@@ -1,0 +1,9 @@
+{
+  "port": 9527,
+  "rootPath": "/path/to/root",
+  "rules": [{
+    "url": "/style/min.css",
+    "sourceRule": "/style/**/*.css",
+    "excludeFiles": "other.css|exclude.css"
+  }]
+}
